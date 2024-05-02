@@ -1,0 +1,204 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <record id="seq_work_order" model="ir.sequence">
+            <field name="name">Work Order</field>
+            <field name="code">work.order</field>
+            <field name="prefix">WO</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        
+        <record id="action_view_work_order" model="ir.actions.act_window">
+            <field name="name">Work Order</field>
+            <field name="res_model">work.order</field>
+            <field name="view_mode">tree,kanban,form,calendar</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Generate configuration Details
+                </p>
+            </field>
+        </record>
+        <record id="view_task_calendar_work_order" model="ir.ui.view">
+            <field name="name">work.order.calendar</field>
+            <field name="model">work.order</field>
+            <field eval="2" name="priority"/>
+            <field name="arch" type="xml">
+                <calendar date_start="schedule_start_date" date_stop="schedule_end_date" string="WOs" mode="month"  color="stock_warehouse_id" event_limit="5"
+                          hide_time="true"  event_open_popup="true" quick_add="false">
+                    <field name="reference_no" />
+                    <field name="name" invisible="1"/>
+                    <field name="calculate_percentage" />
+                    <field name="schedule_start_date" optional="1"/>
+                    <field name="schedule_end_date" optional="1"/>
+                    <field name="responsible_id"/>
+                    <field name="partner_id" invisible="1"/>
+                    <field name="product_id"/>
+                    <field name="stock_warehouse_id" filters="1"/> 
+                     
+                </calendar>
+            </field>
+        </record>
+
+        <record id="view_work_order_tree_view" model="ir.ui.view">
+            <field name="name">Work Order Tree</field>
+            <field name="model">work.order</field>
+            <field name="arch" type="xml">
+                <tree string="Work Order">
+                    <field name="reference_no" />
+                    <field name="name" invisible="1"/>
+                    <field name="schedule_start_date" optional="1"/>
+                    <field name="schedule_end_date" optional="1"/>
+                    <field name="responsible_id"/>
+                    <field name="partner_id"/>
+                    <field name="product_id"/>
+                </tree>
+            </field>
+        </record> 
+        <record id="view_work_order_form" model="ir.ui.view">
+            <field name="name">Work Order</field>
+            <field name="model">work.order</field>
+            <field name="arch" type="xml">
+                <form string="Work Order">
+                    <header>
+                        <button type="object" name="change_activity" class="btn-primary" string="Change Activity"></button>
+                        <field name="state" widget="statusbar" options="{'clickable': '1'}"/>
+                    
+                    </header>
+                    <sheet>
+                        <strong><h1><field name="reference_no"  
+                                readonly="1"/></h1></strong>
+                        <group>
+                            <group>
+                                <field name="name" required='1'/>
+                                <field name="category_id"/>
+                                <field name="activity_type" />
+                                <field name="schedule_start_date"/>
+                                <field name="schedule_end_date" readonly='1'/>
+                                <field name="deadline_date"/>
+                                <field name="responsible_id"/>
+                                <field name="product_id" domain="[('categ_id', '=', category_id)]"/>
+                                <field name="lot_serial" domain="[('product_id', '=', product_id)]"/>
+                                <field name="stock_warehouse_id"/>
+                                <field name="calculate_percentage"/>
+                                <field name='reference_id' readonly='1'/>
+                            </group>
+                             
+                            <group>
+                                <field name="employee_id" invisible="1"/>
+                                <field name="partner_id"/>
+                                <field name="contact_address" readonly='1' force_save="1"/>
+                                <field name="contact_city" readonly='1' force_save="1"/>
+                                <field name="contact_state" readonly='1' force_save="1"/>
+                                <field name="contact_country" readonly='1' force_save="1"/>
+                                <field name="contact_zip" readonly='1' force_save="1"/>
+                                <field name="contact_phone" readonly='1' force_save="1"/>
+                                <field name="contact_email" readonly='1' force_save="1"/>
+                                <field name="planned_hrs" widget="float_time" readonly='1' force_save="1"/>
+                                <field name="total_hours" readonly='1'/>
+                                <field name='is_reprogrammed' readonly='1'/>
+                            </group>
+                        </group>
+                                
+                        <notebook>
+                            <page string="Responsible Availability">
+                                <button name="view_responsible_availability" type="object" string='Refresh' class="btn-primary"/>
+                                <field name="responsible_availability_ids">
+                                    <tree editable='bottom'>
+                                        <field name='responsible_id'/>
+                                        <field name='date'/>
+                                        <field name='percentage' widget="percentpie" string="Work Load"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Protocols">
+                                <field name="activity_protocols_ids" widget="section_and_note_one2many">
+                                    <tree editable='bottom'>
+                                        <field name='workorder_id' invisible='1'/>
+                                        <field name='activity_types_id' invisible='0'/>
+                                        <field name='types' optional="1"/>
+                                        <field name="file_name" invisible="1" optional="1"/>
+                                        <field name='related_file' filename="file_name" widget='binary' optional="1"/>
+                                        <field name='value' />
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Products">
+                                <field name="product_details_ids" widget="section_and_note_one2many" readonly='0' force_save="1">
+                                    <tree editable='bottom'>
+                                        <field name='work_order_id' invisible='1'/>
+                                        <field name='activity_prd_id' invisible='1'/>
+                                        <field name='product_id' />
+                                        <field name='product_qty'/>
+                                        <field name='product_uom' />
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Timesheets">
+                                <field name="timesheet_ids">
+                                    <tree editable='bottom'>
+                                        <field name='wo_order_id' invisible='1'/>
+                                        <field name='employee_id' />
+                                        <field name='name'/>
+                                        <field name='start_time'/>
+                                        <field name='end_time'/>
+                                        <field name='duration' widget="float_time" force_save="1"/>
+                                    </tree>
+                                </field>
+                                <group class="oe_subtotal_footer oe_right" name="project_hours">
+                                    <span>
+                                        <label class="font-weight-bold" for="total_hours" string="Hours Spent"/>
+                                    </span>
+                                    <field name="total_hours" widget="float_time" nolabel="1" force_save="1"/>
+                                </group>
+                            </page>
+                            <page string="Break Reasons">
+                                <field name="breaking_interval_ids" readonly="0">
+                                    <tree editable='bottom'>
+                                        <field name='workorder_id' invisible='1'/>
+                                        <field name='hr_employee_id'/>
+                                        <field name='name'/>
+                                        <field name='starting_time'/>
+                                        <field name='ending_time'/>
+                                        <field name='total_duration' widget="float_time" force_save="1"/>
+                                    </tree>
+                                </field>
+                                <group class="oe_subtotal_footer oe_right" name="project_hours">
+                                    <span>
+                                        <label class="font-weight-bold" for="total_breaking_hours" string="Total Breaking Hours"/>
+                                    </span>
+                                    <field name="total_breaking_hours" widget="float_time" nolabel="1" force_save="1"/>
+                                </group>
+                            </page>
+                            <page string="Images">
+                                <field name="image_ids">
+                                    <tree editable="false">
+                                        <field name="datas" widget="image" nolabel="1" style="max-width: 500px; max-height: 500px;"/>
+                                    </tree>
+                                    <form editable="false">
+                                        <sheet>
+                                            <field name="datas" widget="image" nolabel="1" style="max-width: 500px; max-height: 500px;"/>
+                                        </sheet>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+                            
+        <menuitem name="Work Order" 
+        id="workorder_main_menu"
+        sequence="0"/>
+
+        <menuitem id="work_order_detail_menu" 
+        name="Work Order" 
+        parent="workorder_main_menu" 
+        action="action_view_work_order"
+        sequence="0"/>
+        
+    </data>
+</odoo>
+                            

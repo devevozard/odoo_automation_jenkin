@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <record id="action_work_order_availibity_calendar" model="ir.actions.act_window">
+            <field name="name">Avalibility Calendar</field>
+            <field name="res_model">avail.calendar</field>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Generate configuration Details
+                </p>
+            </field>
+        </record> 
+
+        <record id="work_order_availibity_calendar_tree" model="ir.ui.view">
+            <field name="name">Avalibility Calendar List View</field>
+            <field name="model">avail.calendar</field>
+            <field name="arch" type="xml">
+                <tree string=" Calender">
+                    <field name='name'/>
+                </tree>
+            </field>
+        </record>
+                    
+
+        <record id="view_work_order_availibity_calendar_form" model="ir.ui.view">
+            <field name="name">Avalibility Calendar View</field>
+            <field name="model">avail.calendar</field>
+            <field name="arch" type="xml">
+                <form string="Calendar">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Details">
+                                <field name="calendar_line_ids" readonly="0">
+                                    <tree editable='bottom'>
+                                        <field name='calendar_id' invisible='1'/>
+                                        <field name='technician_id' />
+                                        <field name='working_day'/>
+                                        <field name='working_from' widget="float_time" />
+                                        <field name='working_to' widget="float_time"/>
+                                        <field name='total_avail_hours' widget="float_time" optional="1" force_save='1'/>
+
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+                                
+
+
+        <menuitem id="availibity_calendar_detail_menu" 
+        name="Calendar" 
+        parent="workorder_main_menu" 
+        action="action_work_order_availibity_calendar"
+        sequence="5"/>
+    
+    </data>
+    
+</odoo>

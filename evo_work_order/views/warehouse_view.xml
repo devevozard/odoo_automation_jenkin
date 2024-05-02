@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <record id="view_stock_warehouse_inherit" model="ir.ui.view">
+            <field name="name">stock.warehouse.form</field>
+            <field name="model">stock.warehouse</field>
+            <field name="inherit_id" ref="stock.view_warehouse"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='code']" position="after">
+                    <field name="calendar_avalibility_id"/>
+                </xpath>
+                <xpath expr="//sheet/notebook" position="inside">
+                    <page string="Available Hours">
+                        <field name="warehouse_line_ids" force_save='1' readonly="1">
+                            <tree>
+                                <field name='ware_house_id' invisible='1'/>
+                                <field name='technician_name'/>
+                                <field name='monday' sum ='Total'  widget="float_time"/>
+                                <field name='tuesday' sum ='Total' widget="float_time"/>
+                                <field name='wednesday' sum ='Total' widget="float_time"/>
+                                <field name='thursday' sum ='Total' widget="float_time"/>
+                                <field name='friday' sum ='Total' widget="float_time"/>
+                                <field name='saturday' sum ='Total' widget="float_time"/>
+                                <field name='sunday' sum ='Total' widget="float_time"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+        <menuitem id="ware_house_detail_menu" 
+        name="Warehouse" 
+        parent="workorder_main_menu" 
+        action="stock.action_warehouse_form"
+        sequence="4"/>
+    </data> 
+</odoo>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_workorder_report_wizard_from" model="ir.ui.view">
+            <field name="name">view.workorder.report.wizard.from</field>
+            <field name="model">workorder.report.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Work Order Report">
+                    <group>
+                        <group>
+                            <field name="warehouse_id" required='1'/>
+                            <field name="duraction" required='1'/>
+                        </group>
+                        <footer>
+                            <div class="d-inline-block pull-left">
+                                <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="z"/>
+                                <button string="View Report" name="action_workorder_report" type="object" class="btn-primary"/>
+                            </div>
+                        </footer>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_workorder_report_wizard" model="ir.actions.act_window">
+            <field name="name">Work Order Report</field>
+            <field name="res_model">workorder.report.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+
+        <menuitem id="menu_workorder_report"
+                  name="WorkOrder Report"
+                  parent="evo_work_order.workorder_main_menu"
+                  action="action_workorder_report_wizard"
+                  sequence="340"/>
+
+    </data>
+</odoo>

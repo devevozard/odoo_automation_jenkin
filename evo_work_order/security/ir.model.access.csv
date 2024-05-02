@@ -1,0 +1,17 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_work_order,access_work_order,model_work_order,,1,1,1,1
+access_activity_type,access_activity_type,model_activity_type,,1,1,1,1
+access_activity_type_detail,access_activity_type_detail,model_activity_type_detail,,1,1,1,1
+access_product_template_line,access_product_template_line,model_product_template_line,,1,1,1,1
+access_timesheet_line,access_timesheet_line,model_timesheet_line,,1,1,1,1
+access_ware_house_line,access_ware_house_line,model_ware_house_line,,1,1,1,1
+access_avail_calendar,access_avail_calendar,model_avail_calendar,,1,1,1,1
+access_avail_calendar_line,access_avail_calendar_line,model_avail_calendar_line,,1,1,1,1
+access_break_tracking,access_break_tracking,model_break_tracking,,1,1,1,1
+access_activity_type_line,access_activity_type_line,model_activity_type_line,,1,1,1,1
+access_workorder_report_wizard,access_workorder_report_wizard,model_workorder_report_wizard,,1,1,1,1
+access_workorder_report,access_workorder_report,model_workorder_report,,1,1,1,1
+access_workorder_wizard,access_workorder_wizard,model_workorder_wizard,,1,1,1,1
+access_activity_onchange_wizard,access_activity_onchange_wizard,model_activity_onchange_wizard,,1,1,1,1
+access_responsible_availability,access_responsible_availability,model_responsible_availability,,1,1,1,1
+

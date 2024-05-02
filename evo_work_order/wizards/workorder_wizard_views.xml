@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_workorder_wizard_wizard_from" model="ir.ui.view">
+            <field name="name">view.workorder.wizard.from</field>
+            <field name="model">workorder.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Work Order Report">
+                    <group>
+                        <group>
+                            <field name="stock_warehouse_id" required='1' readonly='1'/>
+                            <field name="schedule_start_date" required='1' readonly='1'/>
+                            <field name='name' required='1'/>
+                            <field name="category_id" required='1'/>
+                            <field name="activity_type_id" required='1'/>
+                            <field name="responsible_id" required='1'/>
+                        </group>
+                        <footer>
+                            <div class="d-inline-block pull-left">
+                                <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="z"/>
+                                <button string="Create WorkOrder" name="action_create_workorder" type="object" class="btn-primary"/>
+                            </div>
+                        </footer>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_workorder_wizard" model="ir.actions.act_window">
+            <field name="name">Create WorkOrder</field>
+            <field name="res_model">workorder.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

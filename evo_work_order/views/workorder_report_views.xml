@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Define the Kanban view for WorkOrderReport -->
+        <record id="view_workorder_report_kanban" model="ir.ui.view">
+            <field name="name">workorder.report.kanban</field>
+            <field name="model">workorder.report</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_mobile">
+                    <header>
+                        <button type="object" name="action_assign" icon="fa-book" string="Assign"></button>
+                    </header>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_card oe_kanban_global_click" style="width:200px; height: 130px;">
+                                <div class="row" style="height: 100%;">
+                                    <div class="col-3 ml-3" style="background-color: black; color: white; font-size: 16px; height: 100%;">
+                                        <div class="o_kanban_record_headings mt-1">
+                                            <field name="formatted_date"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-13 ml-5">
+                                        <div class="o_kanban_record_headings mt-1">
+                                            <strong><field name="percentage" widget="percentpie"/></strong>
+                                        </div>
+                                        <div class="o_kanban_record_headings mt-1">
+                                            <strong class="o_kanban_record_title">Workorders :<field name="total_workorders" /></strong>
+                                        </div>
+                                        <div class="o_kanban_record_headings mt-1">
+                                            <field name="stock_warehouse_id" options="{'no_open': True}"/>
+                                        </div>
+                                        <div class="o_kanban_secondary mt-1">
+                                            <button type="object" name="action_assign" icon="fa-book" string="Journal Entries" class="btn btn-primary btn-sm o_kanban_button_left" style="font-size: 14px;">Assign</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        <record id="action_workorder_report_kanban" model="ir.actions.act_window">
+            <field name="name">Warehouse Availability </field>
+            <field name="res_model">workorder.report</field>
+            <field name="view_mode">kanban</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <record id="action_view_activity_type" model="ir.actions.act_window">
+            <field name="name">Acitivity Type</field>
+            <field name="res_model">activity.type</field>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Generate configuration Details
+                </p>
+            </field>
+        </record> 
+    
+        <record id="view_view_activity_type" model="ir.ui.view">
+            <field name="name">Activity Type</field>
+            <field name="model">activity.type</field>
+            <field name="arch" type="xml">
+                <form string="Work Order">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" />
+                                <field name="estimated_time" widget="float_time"/>
+                                <field name='category_id' required='1'/>
+                            </group>
+                        </group>
+                        <group>
+                            <notebook>
+                                <page string="Protocols">
+                                    <field name="activity_protocol_ids"  invisible="0">
+                                    </field>
+                                </page>
+                                <page string="Products">
+                                    <field name="product_detail_ids" invisible="0">
+                                        <tree editable='bottom'>
+                                            <field name='work_order_id' invisible='1'/>
+                                            <field name='activity_prd_id' invisible='1'/>
+                                            <field name='product_id' domain="[('categ_id','=',parent.category_id)]"/>
+                                            <field name='product_qty'/>
+                                            <field name='product_uom' />
+                                        </tree>
+                                    </field>
+                                </page>
+                            </notebook>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+         
+        <record id="action_view_protocol_type" model="ir.actions.act_window">
+            <field name="name">Acitivity  Protocol Type</field>
+            <field name="res_model">activity.type.detail</field>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Generate configuration Details
+                </p>
+            </field>
+        </record> 
+
+        <record id="view_activity_type_protocol_detail_tree" model="ir.ui.view">
+            <field name="name">Activity Type Protocol Details</field>
+            <field name="model">activity.type.detail</field>
+            <field name="arch" type="xml">
+                <tree string="Protocol Detail">
+                    <field name='activity_type_id' invisible='1'/>
+                    <field name='code' />
+                    <field name='name'/>
+                    <field name='type' />
+                </tree>
+            </field>
+        </record>
+          
+        <record id="view_activity_type_protocol_detail_form" model="ir.ui.view">
+            <field name="name">Activity Type Protocol Details</field>
+            <field name="model">activity.type.detail</field>
+            <field name="arch" type="xml">
+                <form string="Protocol Detail">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name='activity_type_id' invisible='1' />
+                                <field name='code' />
+                                <field name='name'/>
+                                <field name='type' />
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+                  
+                                
+        <menuitem id="activity_type_details_submenu" 
+        name="Activity Type"
+        parent="workorder_main_menu" 
+        action="action_view_activity_type"
+        sequence="1"/>
+
+        <menuitem id="activity_protocol_type_details_submenu" 
+        name="Protocol" 
+        parent="workorder_main_menu" 
+        action="action_view_protocol_type"
+        sequence="2"/>
+        
+    </data>
+</odoo>
+    
+                            
+                            
+                            
+                                    
+
+                                            
+
+                                        
+
+
+
+    

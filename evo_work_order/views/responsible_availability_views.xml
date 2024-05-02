@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <record id="view_responsible_availability_tree_view" model="ir.ui.view">
+            <field name="name">responsible.availability.tree</field>
+            <field name="model">responsible.availability</field>
+            <field name="arch" type="xml">
+                <tree string="Work Order">
+                    <field name="responsible_id"/>
+                    <field name="percentage" widget="progressbar"/>
+                    <field name="date"/> 
+                </tree>
+            </field>
+        </record> 
+
+        <record id="action_responsible_availability" model="ir.actions.act_window">
+            <field name="name">Responsible Availability</field>
+            <field name="res_model">responsible.availability</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_responsible_availability_tree_view"/>
+        </record>
+    </data>
+</odoo>

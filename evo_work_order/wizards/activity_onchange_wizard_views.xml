@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_activity_onchange_wizard_from" model="ir.ui.view">
+            <field name="name">view.activity.onchange.wizard.from</field>
+            <field name="model">activity.onchange.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Activity">
+                    <group>
+                        <group>
+                            <field name="category_id" invisible='1'/>
+                            <field name="old_activity_type_id" readonly='1'/>
+                            <field name="new_activity_type_id" required='1'  domain="[('category_id', '=', category_id)]"/>
+                        </group>
+                        <footer>
+                            <div class="d-inline-block pull-left">
+                                <button string="Reschedule" type="object" class="btn-secondary" name='action_reschedule'/>
+                                <button string="Create WorkOrder" name="action_create_new_workorder" type="object" class="btn-primary"/>
+                            </div>
+                        </footer>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_activity_onchange_wizard" model="ir.actions.act_window">
+            <field name="name">Change Activity</field>
+            <field name="res_model">activity.onchange.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>
